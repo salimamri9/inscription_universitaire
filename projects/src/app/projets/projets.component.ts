@@ -21,6 +21,8 @@ export class ProjetsComponent {
  
   currentEtudiantID = "";
 
+  private backendUrl = 'http://backend-service:8080/api/v1'; // Backend service URL
+
 
   
 
@@ -32,13 +34,13 @@ export class ProjetsComponent {
       "cin" : this.cin,
       "tel" : this.tel
     };
- 
-    this.http.post("http://localhost:8082/api/v1/etudiant/save",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
+
+    this.http.post("http://backend-service:8080/api/v1/etudiant/save",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Etudiant ajouté avec succès");
         this.getAllEtudiant();
- 
+
         this.nom = '';
         this.cin = '';
         this.tel = '';
@@ -49,7 +51,7 @@ export class ProjetsComponent {
   getAllEtudiant()
   {
     
-    this.http.get("http://localhost:8082/api/v1/etudiant/getall")
+    this.http.get("http://backend-service:8080/api/v1/etudiant/getall")
   
     .subscribe((resultData: any)=>
     {
@@ -80,7 +82,7 @@ export class ProjetsComponent {
       "tel" : this.tel
     };
     
-    this.http.put("http://localhost:8082/api/v1/etudiant/edit"+ "/" + this.currentEtudiantID , bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
+    this.http.put("http://backend-service:8080/api/v1/etudiant/edit"+ "/" + this.currentEtudiantID , bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Etudiant modifié avec succès")
@@ -109,7 +111,7 @@ export class ProjetsComponent {
   {
     
     
-    this.http.delete("http://localhost:8082/api/v1/etudiant/delete"+ "/"+ data._id,{responseType: 'text'}).subscribe((resultData: any)=>
+    this.http.delete("http://backend-service:8080/api/v1/etudiant/delete"+ "/"+ data._id,{responseType: 'text'}).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Etudiant supprimé")
