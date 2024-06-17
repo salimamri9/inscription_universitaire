@@ -12,7 +12,7 @@ export class ProjetsComponent {
     this.getAllEtudiant();
   }
 
-  etudiantArray: any[] = [];
+  EtudiantArray: any[] = [];
 
   nom: string = "";
   cin: string = "";
