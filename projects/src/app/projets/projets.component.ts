@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -6,66 +6,67 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './projets.component.html',
   styleUrls: ['./projets.component.css']
 })
-export class ProjetsComponent implements OnInit {
+export class ProjetsComponent {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.getAllEtudiant();
+  }
 
   etudiantArray: any[] = [];
+
   nom: string = "";
   cin: string = "";
   tel: string = "";
+
   currentEtudiantID = "";
-  private backendUrl = 'http://192.168.49.2:30001/api/v1/etudiant'; // Backend service URL
 
-  ngOnInit(): void {
-    this.getAllEtudiants();
-  }
+  private backendUrl = 'http://192.168.49.2:30001/api/v1'; // Backend service URL
 
-  register(): void {
-    const bodyData = {
-      nom: this.nom,
-      cin: this.cin,
-      tel: this.tel
+  register() {
+    let bodyData = {
+      "nom": this.nom,
+      "cin": this.cin,
+      "tel": this.tel
     };
 
-    this.http.post(`${this.backendUrl}/save`, bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
+    this.http.post(`${this.backendUrl}/etudiant/save`, bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Etudiant ajouté avec succès");
-      this.getAllEtudiants();
+      this.getAllEtudiant();
       this.resetForm();
     });
   }
 
-  getAllEtudiants(): void {
-    this.http.get(`${this.backendUrl}/getall`).subscribe((resultData: any) => {
+  getAllEtudiant() {
+    this.http.get(`${this.backendUrl}/etudiant/getall`).subscribe((resultData: any) => {
       console.log(resultData);
       this.etudiantArray = resultData;
     });
   }
 
-  setUpdate(data: any): void {
+  setUpdate(data: any) {
     this.nom = data.nom;
     this.cin = data.cin;
     this.tel = data.tel;
     this.currentEtudiantID = data._id;
   }
 
-  updateRecords(): void {
-    const bodyData = {
-      nom: this.nom,
-      cin: this.cin,
-      tel: this.tel
+  updateRecords() {
+    let bodyData = {
+      "nom": this.nom,
+      "cin": this.cin,
+      "tel": this.tel
     };
 
-    this.http.put(`${this.backendUrl}/edit/${this.currentEtudiantID}`, bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
+    this.http.put(`${this.backendUrl}/etudiant/edit/${this.currentEtudiantID}`, bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Etudiant modifié avec succès");
-      this.getAllEtudiants();
+      this.getAllEtudiant();
       this.resetForm();
     });
   }
 
-  save(): void {
+  save() {
     if (this.currentEtudiantID === '') {
       this.register();
     } else {
@@ -73,16 +74,16 @@ export class ProjetsComponent implements OnInit {
     }
   }
 
-  setDelete(data: any): void {
-    this.http.delete(`${this.backendUrl}/delete/${data._id}`, { responseType: 'text' }).subscribe((resultData: any) => {
+  setDelete(data: any) {
+    this.http.delete(`${this.backendUrl}/etudiant/delete/${data._id}`, { responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Etudiant supprimé");
-      this.getAllEtudiants();
+      this.getAllEtudiant();
       this.resetForm();
     });
   }
 
-  private resetForm(): void {
+  private resetForm() {
     this.nom = '';
     this.cin = '';
     this.tel = '';

@@ -11,7 +11,7 @@ COPY . .
 
 RUN npm run build --prod
 
-# Stage 2: Serve Angular application using Nginx
+
 FROM httpd:alpine3.15
 
 WORKDIR /usr/local/apache2/htdocs
