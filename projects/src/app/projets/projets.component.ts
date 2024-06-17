@@ -29,7 +29,7 @@ export class ProjetsComponent {
       "tel": this.tel
     };
 
-    this.http.post("http://192.168.49.2:30001/api/v1/etudiant/save", bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
+    this.http.post(`${this.backendUrl}/etudiant/save`, bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Etudiant ajouté avec succès");
       this.getAllEtudiant();
@@ -40,7 +40,7 @@ export class ProjetsComponent {
   }
 
   getAllEtudiant() {
-    this.http.get("http://192.168.49.2:30001/api/v1/etudiant/getall").subscribe((resultData: any) => {
+    this.http.get(`${this.backendUrl}/etudiant/getall`).subscribe((resultData: any) => {
       console.log(resultData);
       this.EtudiantArray = resultData;
     });
@@ -60,7 +60,7 @@ export class ProjetsComponent {
       "tel": this.tel
     };
 
-    this.http.put("http://192.168.49.2:30001/api/v1/etudiant/edit" + "/" + this.currentEtudiantID, bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
+    this.http.put(`${this.backendUrl}/etudiant/edit/${this.currentEtudiantID}`, bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Etudiant modifié avec succès")
       this.getAllEtudiant();
@@ -81,7 +81,7 @@ export class ProjetsComponent {
   }
 
   setDelete(data: any) {
-    this.http.delete("http://192.168.49.2:30001/api/v1/etudiant/delete" + "/" + data._id, { responseType: 'text' }).subscribe((resultData: any) => {
+    this.http.delete(`${this.backendUrl}/etudiant/delete/${data._id}`, { responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Etudiant supprimé")
       this.getAllEtudiant();
