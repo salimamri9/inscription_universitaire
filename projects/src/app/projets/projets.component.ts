@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./projets.component.css']
 })
 export class ProjetsComponent {
-
+//test
   constructor(private http: HttpClient) {
     this.getAllEtudiant();
   }
