@@ -42,13 +42,13 @@
       </thead>
       <tbody>
           <tr *ngFor="let EtudiantItem of EtudiantArray">
-         
+
           <td>{{EtudiantItem.nom}}</td>
           <td>{{EtudiantItem.cin }}</td>
           <td>{{EtudiantItem.tel }}</td>
 
           <td>
-              <button type="button" class="btn btn-success" (click)="setUpdate(EtudiantItem)">Edit</button>
+            <!-- <button type="button" class="btn btn-success" (click)="setUpdate(EtudiantItem)">Edit</button> -->
               <button type="button" class="btn btn-danger" (click)="setDelete(EtudiantItem)">Delete</button>
           </td>
         </tr>
