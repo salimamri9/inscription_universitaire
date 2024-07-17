@@ -1,2 +1,1 @@
-# inscription_universitaire
 
